@@ -6,7 +6,8 @@ module.exports = {
     try {
       const mu = new dgraph.Mutation()
       const newBook = {
-        ...args.input
+        ...args.input,
+        "book": ""
       }
       mu.setCommitNow(true)
       mu.setSetJson(newBook)
