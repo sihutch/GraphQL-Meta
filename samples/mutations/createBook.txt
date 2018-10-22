@@ -1,0 +1,19 @@
+#mutation
+mutation CreateBook($input: BookInput!) {
+  postBook(input: $input) {
+    book_title
+    book_doi
+    book_publication_date
+    book_uid
+  }
+}
+
+#variables
+{
+  "input": {
+    "book_guid": "db44f821-e253-42ae-9bfd-64a256b9cdca",
+    "book_doi" : "10.1109/5.1",
+    "book_title": "Book 1 - The quick",
+    "book_publication_date": "1977-05-25"
+  }
+}

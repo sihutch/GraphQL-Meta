@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -e js,json,graphql" 
+    "start": "nodemon -e js,json,graphql"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.1.0",
+    "dgraph-js": "^1.2.1",
     "graphql": "^14.0.2",
+    "graphql-playground-middleware-express": "^1.7.6",
+    "grpc": "^1.15.1",
     "nodemon": "^1.18.4"
   }
 }

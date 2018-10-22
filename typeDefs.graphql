@@ -1,0 +1,25 @@
+scalar DateTime
+
+type Book {
+  book_uid: ID!
+  book_guid: String!
+  book_doi: String!
+  book_title: String!
+  book_publication_date: DateTime!
+}
+
+input BookInput {
+  book_guid: String!
+  book_doi: String!
+  book_title: String!
+  book_publication_date: DateTime!
+}
+
+type Query {
+    allBooks: [Book!]!
+    Book(book_guid: ID!): Book
+}
+
+type Mutation {
+    postBook(input: BookInput!): Book!
+}
