@@ -3,12 +3,27 @@ const {ApolloServer} = require('apollo-server')
 
 const typeDefs = `
   type Query {
-      totalBooks: Int!
+    totalBooks: Int!
+  }
+
+  type Mutation {
+    postBook(book_guid: String!, book_doi: String!,book_title: String!): Boolean!
   }
 `
+
+//Store data in memory for now
+var books = []
+
 const resolvers = {
   Query: {
-    totalBooks: () => 42
+    totalBooks: () => books.length
+  },
+
+  Mutation: {
+    postBook(parent, args) {
+      books.push(args)
+      return true
+    }
   }
 }
 
