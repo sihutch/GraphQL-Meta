@@ -1,0 +1,9 @@
+query {
+  allBooks {
+    book_title
+    book_doi
+    people {
+      person_name
+    }
+  }
+}

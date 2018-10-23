@@ -45,9 +45,9 @@ async function setSchema(dgraphClient) {
 async function start() {
   const grpc = require("grpc");
   const clientStub = new dgraph.DgraphClientStub(
-    "localhost:9080",grpc.credentials.createInsecure(),
+    "server:9080",grpc.credentials.createInsecure(),
   );
-  
+
   const dgraphClient = new dgraph.DgraphClient(clientStub);
   setSchema(dgraphClient)
 
