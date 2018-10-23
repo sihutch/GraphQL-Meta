@@ -6,6 +6,7 @@ type Book {
   book_doi: String!
   book_title: String!
   book_publication_date: DateTime!
+  people: Person
 }
 
 input BookInput {
@@ -13,6 +14,15 @@ input BookInput {
   book_doi: String!
   book_title: String!
   book_publication_date: DateTime!
+  people: PersonInput
+}
+
+input PersonInput {
+  person_name: String!
+}
+
+type Person {
+  person_name: String!
 }
 
 type Query {
