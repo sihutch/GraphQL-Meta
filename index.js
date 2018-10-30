@@ -30,12 +30,7 @@ async function setSchema(dgraphClient) {
       org_name: string @index(term) .
       org_guid: string @index(exact) .
 
-      cpt_title: string @index(term) .
-
-      role_type: string @index(term) .
-
       affiliations: uid @reverse .
-      roles: uid @reverse .
       people : uid @reverse .
     `;
     const op = new dgraph.Operation();
@@ -79,8 +74,8 @@ async function fetchAffiliationsForPeople(dgraphClient,peopleIds) {
 async function start() {
   const grpc = require("grpc");
   const clientStub = new dgraph.DgraphClientStub(
-    //"server:9080",grpc.credentials.createInsecure(),
-    "localhost:9080",grpc.credentials.createInsecure(),
+    "server:9080",grpc.credentials.createInsecure(),
+    //"localhost:9080",grpc.credentials.createInsecure(),
   );
 
   const dgraphClient = new dgraph.DgraphClient(clientStub);
