@@ -14,4 +14,4 @@ Access the GraphQL Playground at http://localhost:4000/graphql
 
 ##Details
 
-Follow the details on the [Wiki](https://dgraph.io/)
+Follow the details on the [Wiki](https://ixxuswiki.atlassian.net/wiki/spaces/ET/pages/1045889139/Spike+GraphQL+with+Dgraph)
