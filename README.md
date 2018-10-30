@@ -1,23 +1,17 @@
-# Dgraph Metadata
+# Dgraph GraphQL example
 
-A repository for testing [Dgraph](https://dgraph.io/)
+A basic P.O.C of using GraphQL to mutate and query a graph persisted in [Dgraph](https://dgraph.io/).
 
 ## Getting Started
 
-These instructions will allow you to follow the examples.
+Run: `docker-compose up -d`
 
-### Prerequisites
+This will setup all the DGraph containers and the ApolloServer.
 
-[Install](https://docs.dgraph.io/get-started#step-1-install-dgraph) Dgraph
+Access the Dgraph console at http://localhost:8000/
 
-### Create the schema
+Access the GraphQL Playground at http://localhost:4000/graphql
 
-Run: `spike/schema.sh`
+##Details
 
-### Setup the test data
-
-Run: `spike/data.sh`
-
-### Run queries
-
-Sample queries are beneath `spike/queries`
+Follow the details on the [Wiki](https://dgraph.io/)
