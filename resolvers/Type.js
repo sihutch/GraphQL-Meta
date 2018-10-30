@@ -3,19 +3,14 @@ const { GraphQLScalarType } = require('graphql')
 module.exports = {
 
   Book: {
-    async people (parent, args, { dgraphClient }, info) {
-      const query =
-      `query me($bookId: string) {
-          me(func: uid($bookId)) {
-            people {
-            uid
-            expand(_all_)
-            }
-          }
-       }`
-       const vars = {$bookId: parent.uid};
-       const res = await dgraphClient.newTxn().queryWithVars(query, vars);
-       return res.getJson().me[0].people
+    async people (parent, args, { dgraphClient,dataloader }, info) {
+       return await dataloader.people.load(parent.uid)
+     }
+  },
+
+  Person: {
+    async affiliations (parent, args, { dgraphClient,dataloader }, info) {
+       return await dataloader.affiliations.load(parent.uid)
      }
   },
 

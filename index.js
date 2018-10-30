@@ -5,6 +5,7 @@ const expressPlayground = require('graphql-playground-middleware-express').defau
 const resolvers = require('./resolvers')
 const dgraph = require("dgraph-js");
 
+var DataLoader = require('dataloader')
 var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 
 // Drop All - discard all data and start from a clean slate.
@@ -42,14 +43,53 @@ async function setSchema(dgraphClient) {
     await dgraphClient.alter(op);
 }
 
+async function loadData(dgraphClient,parentIds, relationName, jsonFunct) {
+  const query =
+  `query me($parentIds: string) {
+      me(func: uid($parentIds)) { `
+        + relationName +` {
+        uid
+        expand(_all_)
+        }
+      }
+   }`
+
+   const vars = {$parentIds: "[" + parentIds + "]"};
+   try {
+     const res = await dgraphClient.newTxn().queryWithVars(query, vars);
+     var related = []
+     res.getJson().me.forEach( function(r) {
+       related.push(jsonFunct(r))
+     } );
+
+     return related
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function fetchPeopleForBooks(dgraphClient,bookIds) {
+  return loadData(dgraphClient, bookIds, "people", (b) => {return b.people} )
+}
+
+async function fetchAffiliationsForPeople(dgraphClient,peopleIds) {
+  return loadData(dgraphClient, peopleIds, "affiliations", (p) => {return p.affiliations} )
+}
+
 async function start() {
   const grpc = require("grpc");
   const clientStub = new dgraph.DgraphClientStub(
-    "server:9080",grpc.credentials.createInsecure(),
+    //"server:9080",grpc.credentials.createInsecure(),
+    "localhost:9080",grpc.credentials.createInsecure(),
   );
 
   const dgraphClient = new dgraph.DgraphClient(clientStub);
   setSchema(dgraphClient)
+
+  const dataloader = {
+      people: new DataLoader(keys => fetchPeopleForBooks(dgraphClient,keys)),
+      affiliations: new DataLoader(keys => fetchAffiliationsForPeople(dgraphClient,keys))
+  }
 
   const app = express()
 
@@ -57,7 +97,7 @@ async function start() {
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-      return {dgraphClient}
+      return {dgraphClient,dataloader}
     }
   })
 

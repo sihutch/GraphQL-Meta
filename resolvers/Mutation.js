@@ -13,8 +13,7 @@ module.exports = {
       mu.setSetJson(newBook)
 
       const insertedBook = await txn.mutate(mu)
-      newBook.book_uid = insertedBook.getUidsMap().get("blank-0")
-      return newBook
+      return insertedBook.getUidsMap().get("blank-0")
     } finally {
       await txn.discard();
     }

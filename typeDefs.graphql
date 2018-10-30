@@ -14,15 +14,33 @@ input BookInput {
   book_doi: String!
   book_title: String!
   book_publication_date: DateTime!
-  people: PersonInput
+  people: [PersonInput]
 }
 
 input PersonInput {
   person_name: String!
+  person_orcid: String!
+  person_guid: String!
+  affiliations: [OrganisationInput]
 }
 
 type Person {
+  uid: ID!
   person_name: String!
+  person_orcid: String!
+  person_guid: String!
+  affiliations: [Organisation]
+}
+
+type Organisation {
+    uid: ID!
+    org_name: String!
+    org_guid: String!
+}
+
+input OrganisationInput {
+  org_name: String!
+  org_guid: String!
 }
 
 type Query {
@@ -31,5 +49,5 @@ type Query {
 }
 
 type Mutation {
-    postBook(input: BookInput!): Book!
+    postBook(input: BookInput!): String!
 }

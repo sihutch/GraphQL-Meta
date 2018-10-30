@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.1.0",
+    "dataloader": "^1.4.0",
     "dgraph-js": "^1.2.1",
     "graphql": "^14.0.2",
     "graphql-parse-resolve-info": "^4.0.0",
