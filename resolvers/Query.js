@@ -5,9 +5,6 @@ const {
 
 module.exports = {
   async allBooks(parent, args, { dgraphClient }, info) {
-    //const parsedResolveInfoFragment = parseResolveInfo(info)
-    //simplifyParsedResolveInfoFragmentWithType(parsedResolveInfoFragment, graphQLType)
-
     const query = `
     {
       me(func: has(book)) {
